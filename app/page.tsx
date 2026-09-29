@@ -668,7 +668,10 @@ function HomePage({
           <div className="orbit" />
         </div>
         <div className="hero-copy" key={`${s.id}-${cycle}`} aria-live="polite">
-          <div className="bulletin-label"><span>موجز</span><b>{s.type}</b></div>
+          <div className="bulletin-meta">
+            <div className="bulletin-label"><span>موجز</span><b>{s.type}</b></div>
+            <strong>{String(slide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</strong>
+          </div>
           <div className="bulletin-text">
             <h1>{s.title}</h1>
             <p>{s.text}</p>
@@ -677,6 +680,11 @@ function HomePage({
               <ArrowLeft />
             </button>
           </div>
+          <div className="bulletin-progress" aria-hidden="true"><span /></div>
+        </div>
+        <div className="hero-controls" aria-label="التنقل بين مشاهد الموجز">
+          <button aria-label="المشهد السابق" onClick={() => { setSlide((slide - 1 + slides.length) % slides.length); setCycle((v) => v + 1); }}><ChevronRight /></button>
+          <button aria-label="المشهد التالي" onClick={() => { setSlide((slide + 1) % slides.length); setCycle((v) => v + 1); }}><ChevronLeft /></button>
         </div>
         <div className="slide-dots">
           {slides.map((_, i) => (
